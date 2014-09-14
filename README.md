@@ -3,7 +3,7 @@ A solution to have lists and dictionaries serialized using redis-py.
 
 **Instalation**
 To install serialized_redis, simply:
-```python
+```shell
 	pip install serialized-redis
 ```
 
