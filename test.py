@@ -11,8 +11,8 @@ class TestSerializedRedis(TestCase):
 	def tearDown(self):
 		self.redis.delete('mimi')
 
-	def verify_result(self, expected_value):
-		self.redis.set('mimi', expected_value)
+	def verify_result(self, input_value, expected_value):
+		self.redis.set('mimi', input_value)
 		self.assertEqual(self.redis.get('mimi'), expected_value)
 
 	@mock.patch('pickle.dumps')
@@ -25,14 +25,15 @@ class TestSerializedRedis(TestCase):
 	@mock.patch('redis.Redis.get')
 	@mock.patch('pickle.loads')
 	def test_get_method_should_call_method_loads_from_pickle(self, *args):
+		self.redis.set('mimi', [1, 2, 3])
 		self.redis.get('mimi')
 		self.assertTrue(pickle.loads.call_count == 1)
 
 	def test_get_method_should_return_a_list_serialized(self):
-		self.verify_result([1, 2, 3])
+		self.verify_result([1, 2, 3], [1, 2, 3])
 
 	def test_get_method_should_return_a_dict_seralized(self):
-		self.verify_result({'name': 'Evandro'})
+		self.verify_result({'name': 'Evandro'}, {'name': 'Evandro'})
 
-	def test_get_method_should_return_a_string(self):
-		pass
+	def test_get_method_should_return_a_string_as_a_byte(self):
+		self.verify_result('Evandro', b'Evandro')

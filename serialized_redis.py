@@ -14,4 +14,10 @@ class SerializedRedis(Redis):
 
 	def get(self, key):
 		value = super(Redis, self).get(key)
-		return pickle.loads(value)
+
+		try:
+			return pickle.loads(value)
+		except:
+			pass
+
+		return value
