@@ -37,3 +37,6 @@ class TestSerializedRedis(TestCase):
 
 	def test_get_method_should_return_a_string_as_a_byte(self):
 		self.verify_result('Evandro', b'Evandro')
+
+	def test_get_method_should_return_a_number_as_a_byte(self):
+		self.verify_result(1234, b'1234')
