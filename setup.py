@@ -17,9 +17,10 @@ setup(
     author_email='evandrolgoncalves@gmail.com',
     keywords=['Redis', 'redis-py', 'serialized datas'],
     url='http://github.com/EvandroLG/serialized-redis',
-    licence='MIT',
+    license='MIT',
     tests_require='pytest>=2.5.0',
     install_requires=[
         'redis',
-    ]
+    ],
+    packages=['serialized-redis']
 )
