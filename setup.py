@@ -1,6 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# SerializedRedis
+# author: Evandro Leopoldino Gonçalves <evandrolgoncalves@gmail.com>
+# https://github.com/evandrolg
+# License: MIT
+
 from setuptools import setup
 
 
