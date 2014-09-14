@@ -1,14 +1,14 @@
 # SerializedRedis
 A solution to have lists and dictionaries serialized using redis-py.
 
-**Instalation**
+## Installation
 To install serialized_redis, simply:
 ```shell
 	pip install serialized-redis
 ```
 
 
-**Examples**
+## Example
 ```python
     from serialized_redis import SerializedRedis
 
