@@ -3,6 +3,7 @@ import pickle
 
 
 class SerializedRedis(Redis):
+
 	def set(self, key, value):
 		is_list_or_dict = type(value) == list or type(value) == dict
 
