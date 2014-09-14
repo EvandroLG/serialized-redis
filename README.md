@@ -5,5 +5,5 @@ A solution to have lists and dictionaries serialized using redis-py.
 ```python
     redis = SerializedRedis()
     redis.set('datas', { 'name': 'Evandro', 'age:': 27 })
-    typeof(redis.get('datas')) # It will return a dictionary
+    type(redis.get('datas')) # It will return a dictionary
 ```
