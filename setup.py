@@ -22,5 +22,5 @@ setup(
     install_requires=[
         'redis',
     ],
-    packages=['serialized-redis']
+    packages=['serialized_redis']
 )
