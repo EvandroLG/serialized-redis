@@ -10,16 +10,10 @@ from setuptools import setup
 import os
 
 
-f = open(os.path.join(os.path.dirname(__file__), 'README.md'))
-readme = f.read()
-f.close()
-
-
 setup(
     name='serialized-redis',
-    version='0.1.2',
+    version='0.1.4',
     description='A solution to have lists and dictionaries serialized using redis-py.',
-    long_description=readme,
     author='EvandroLG',
     author_email='evandrolgoncalves@gmail.com',
     keywords=['Redis', 'redis-py', 'serialized datas'],
