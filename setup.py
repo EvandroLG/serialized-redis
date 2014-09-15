@@ -17,7 +17,7 @@ f.close()
 
 setup(
     name='serialized-redis',
-    version='0.1.1',
+    version='0.1.2',
     description='A solution to have lists and dictionaries serialized using redis-py.',
     long_description=readme,
     author='EvandroLG',
