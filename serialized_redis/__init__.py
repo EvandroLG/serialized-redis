@@ -39,5 +39,22 @@ class SerializedRedis(Redis):
     # def rpush(self, key, *values):
     #     pass
 
-    # def lrange(self, key, start, end):
-        # import pdb; pdb.set_trace()
+    def lrange(self, key, start, end):
+        value_list = super(Redis, self).lrange(key, start, end)
+        is_empty = len(value_list) == 0
+
+        if is_empty:
+            return value_list
+
+        def make_result(value):
+            try:
+                return pickle.loads(value)
+            except:
+                pass
+
+            return value
+
+        result = [ make_result(value) for value in value_list ]
+
+        return result
+
