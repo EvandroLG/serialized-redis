@@ -29,3 +29,17 @@ class SerializedRedis(Redis):
             pass
 
         return value
+
+    def rpushx(self, key, value):
+        is_list_or_dict = isinstance(value, list) or isinstance(value, dict)
+
+        if is_list_or_dict:
+            super(Redis, self).rpushx(key, pickle.dumps(value))
+
+        super(Redis, self).rpushx(key, value)
+
+    # def rpush(self, key, *values):
+    #     pass
+
+    # def lrange(self, key, start, end):
+    #     import pdb; pdb.set_trace()
