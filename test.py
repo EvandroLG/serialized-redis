@@ -22,6 +22,13 @@ class TestSerializedRedis(TestCase):
         pickle.dumps.assert_any_call([1, 2, 3])
         self.assertTrue(pickle.dumps.call_count == 1)
 
+    @mock.patch('pickle.dumps')
+    def test_rpushx_method_should_call_method_dumps_from_pickle_with_correct_parameter(self, *args):
+        self.redis.rpushx('mimi', [1, 2, 3])
+
+        pickle.dumps.assert_any_call([1, 2, 3])
+        self.assertTrue(pickle.dumps.call_count == 1)        
+
     @mock.patch('redis.Redis.get')
     @mock.patch('pickle.loads')
     def test_get_method_should_call_method_loads_from_pickle(self, *args):
