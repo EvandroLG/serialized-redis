@@ -22,6 +22,13 @@ class TestSerializedRedis(TestCase):
         pickle.dumps.assert_any_call([1, 2, 3])
         self.assertTrue(pickle.dumps.call_count == 1)
 
+    @mock.patch('pickle.dumps')
+    def test_rpushx_method_should_call_method_dumps_from_pickle_with_correct_parameter(self, *args):
+        self.redis.rpushx('mimi', [1, 2, 3])
+
+        pickle.dumps.assert_any_call([1, 2, 3])
+        self.assertTrue(pickle.dumps.call_count == 1)
+
     @mock.patch('redis.Redis.get')
     @mock.patch('pickle.loads')
     def test_get_method_should_call_method_loads_from_pickle(self, *args):
@@ -40,3 +47,22 @@ class TestSerializedRedis(TestCase):
 
     def test_get_method_should_return_a_number_as_a_byte(self):
         self.verify_result(1234, b'1234')
+
+    def verify_lrange_method(self, key, first_datas, last_datas, instance):
+        self.redis.rpush(key, first_datas)
+        self.redis.rpush(key, last_datas)
+
+        result = self.redis.lrange(key, 0, 1)
+
+        is_type_valid = isinstance(result[0], instance)
+        expected_size = len(result)
+
+        self.assertTrue(is_type_valid)
+        self.assertEqual(expected_size, 2)
+        self.assertEqual(result, [ first_datas, last_datas ])
+
+    def test_lrange_method_should_return_two_serialized_list(self):
+        self.verify_lrange_method('animals', ['dog', 'cat'], ['elephant', 'alligator'], list)
+
+    def test_lrange_method_should_return_two_serialized_dict(self):
+        self.verify_lrange_method('people', { 'name': 'Evandro' }, { 'name': 'Carmen' }, dict)
