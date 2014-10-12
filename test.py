@@ -48,29 +48,21 @@ class TestSerializedRedis(TestCase):
     def test_get_method_should_return_a_number_as_a_byte(self):
         self.verify_result(1234, b'1234')
 
-    def test_lrange_method_should_return_two_serialized_list(self):
-        self.redis.rpush('animals', ['dog', 'cat'])
-        self.redis.rpush('animals', ['elephant', 'alligator'])
+    def verify_lrange_method(self, key, first_datas, last_datas, instance):
+        self.redis.rpush(key, first_datas)
+        self.redis.rpush(key, last_datas)
 
-        result = self.redis.lrange('animals', 0, 1)
+        result = self.redis.lrange(key, 0, 1)
 
-        is_list = isinstance(result[0], list)
+        is_type_valid = isinstance(result[0], instance)
         expected_size = len(result)
 
-        self.assertTrue(is_list)
+        self.assertTrue(is_type_valid)
         self.assertEqual(expected_size, 2)
-        self.assertEqual(result, [ ['dog', 'cat'], ['elephant', 'alligator'] ])
+        self.assertEqual(result, [ first_datas, last_datas ])
+
+    def test_lrange_method_should_return_two_serialized_list(self):
+        self.verify_lrange_method('animals', ['dog', 'cat'], ['elephant', 'alligator'], list)
 
     def test_lrange_method_should_return_two_serialized_dict(self):
-        self.redis.rpush('people', { 'name': 'Evandro' })
-        self.redis.rpush('people', { 'name': 'Carmen' })
-
-        result = self.redis.lrange('people', 0, 1)
-
-        is_dict = isinstance(result[0], dict)
-        expected_size = len(result)
-
-        self.assertTrue(is_dict)
-        self.assertEqual(expected_size, 2)
-        self.assertEqual(result, [ { 'name': 'Evandro' }, { 'name': 'Carmen' } ])
-
+        self.verify_lrange_method('people', { 'name': 'Evandro' }, { 'name': 'Carmen' }, dict)
