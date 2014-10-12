@@ -27,7 +27,7 @@ class TestSerializedRedis(TestCase):
         self.redis.rpushx('mimi', [1, 2, 3])
 
         pickle.dumps.assert_any_call([1, 2, 3])
-        self.assertTrue(pickle.dumps.call_count == 1)  
+        self.assertTrue(pickle.dumps.call_count == 1)
 
     @mock.patch('redis.Redis.get')
     @mock.patch('pickle.loads')
@@ -47,3 +47,16 @@ class TestSerializedRedis(TestCase):
 
     def test_get_method_should_return_a_number_as_a_byte(self):
         self.verify_result(1234, b'1234')
+
+    def test_lrange_method_should_return_two_serialized_list(self, *args):
+        self.redis.rpush('animals', ['dog', 'cat'])
+        self.redis.rpush('animals', ['elephant', 'alligator'])
+
+        result = self.redis.lrange('animals', 0, 1)
+
+        is_list = isinstance(result, list)
+        expected_size = len(result)
+
+        self.assertTrue(is_list)
+        self.assertEqual(expected_size, 2)
+        self.assertEqual(result, [ ['dog', 'cat'], ['elephant', 'alligator'] ])

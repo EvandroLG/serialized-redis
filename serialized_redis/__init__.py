@@ -36,8 +36,8 @@ class SerializedRedis(Redis):
     def rpushx(self, key, value):
         self._execute_command(key, value, super(Redis, self).rpushx)
 
-    # def rpush(self, key, *values):
-    #     pass
+    def rpush(self, key, value):
+        self._execute_command(key, value, super(Redis, self).rpush)
 
     def lrange(self, key, start, end):
         value_list = super(Redis, self).lrange(key, start, end)
@@ -54,7 +54,6 @@ class SerializedRedis(Redis):
 
             return value
 
-        result = [ make_result(value) for value in value_list ]
+        result = [make_result(value) for value in value_list]
 
         return result
-
