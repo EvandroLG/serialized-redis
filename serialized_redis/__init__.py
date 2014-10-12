@@ -15,13 +15,12 @@ class SerializedRedis(Redis):
         is_list_or_dict = isinstance(value, list) or isinstance(value, dict)
 
         if is_list_or_dict:
-            method(key, pickle.dumps(value))
-            return
+            return method(key, pickle.dumps(value))
 
-        method(key, value)
+        return method(key, value)
 
     def set(self, key, value):
-        self._execute_command(key, value, super(Redis, self).set)
+        return self._execute_command(key, value, super(Redis, self).set)
 
     def get(self, key):
         value = super(Redis, self).get(key)
@@ -34,10 +33,10 @@ class SerializedRedis(Redis):
         return value
 
     def rpushx(self, key, value):
-        self._execute_command(key, value, super(Redis, self).rpushx)
+        return self._execute_command(key, value, super(Redis, self).rpushx)
 
     def rpush(self, key, value):
-        self._execute_command(key, value, super(Redis, self).rpush)
+        return self._execute_command(key, value, super(Redis, self).rpush)
 
     def lrange(self, key, start, end):
         value_list = super(Redis, self).lrange(key, start, end)

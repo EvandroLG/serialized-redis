@@ -7,6 +7,12 @@ To install serialized_redis, simply:
 	pip install serialized-redis
 ```
 
+## Updated Methods
+* set
+* get
+* rpush
+* rpushx
+* lrange
 
 ## Example
 ```python
@@ -14,5 +20,5 @@ To install serialized_redis, simply:
 
     redis = SerializedRedis()
     redis.set('datas', { 'name': 'Evandro', 'age:': 27 })
-    type(redis.get('datas')) # It will return a dictionary
+    type(redis.get('datas')) # It will return a dict
 ```
