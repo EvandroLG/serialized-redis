@@ -1,0 +1,8 @@
+language: python
+python:
+  - "3.4.3"
+
+install:
+  - "make install_dependencies"
+
+script: make test
