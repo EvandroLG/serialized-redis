@@ -5,6 +5,9 @@ python:
 install:
   - "make install_dependencies"
 
+services:
+  - redis-server
+
 branches:
   only:
     - master
