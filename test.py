@@ -48,9 +48,7 @@ class TestSerializedRedis(TestCase):
     def test_get_method_should_return_a_number_as_a_byte(self):
         self.verify_result(1234, b'1234')
 
-    #@mock.patch('redis.Redis.rpush')
     def verify_lrange_method(self, key, first_datas, last_datas, instance):
-        return
         self.redis.rpush(key, first_datas)
         self.redis.rpush(key, last_datas)
 
