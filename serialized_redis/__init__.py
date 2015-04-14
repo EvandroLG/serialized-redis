@@ -11,10 +11,11 @@ import pickle
 
 
 class SerializedRedis(Redis):
-    def _execute_command(self, key, value, method):
-        is_list_or_dict = isinstance(value, list) or isinstance(value, dict)
+    def _is_list_or_dict(self, value):
+        return isinstance(value, list) or isinstance(value, dict)
 
-        if is_list_or_dict:
+    def _execute_command(self, key, value, method):
+        if self._is_list_or_dict(value):
             return method(key, pickle.dumps(value))
 
         return method(key, value)
@@ -56,3 +57,22 @@ class SerializedRedis(Redis):
         result = [make_result(value) for value in value_list]
 
         return result
+
+    def hset(self, name, key, value):
+        method = super(Redis, self).hset
+
+        if self._is_list_or_dict(value):
+            return method(name, key, pickle.dumps(value))
+
+        return method(name, key, value)
+
+    def hget(self, name, key):
+        value = super(Redis, self).hget(name, key)
+
+        try:
+            return pickle.loads(value)
+        except:
+            pass
+
+        return value
+
