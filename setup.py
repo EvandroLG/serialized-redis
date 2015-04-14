@@ -12,7 +12,7 @@ import os
 
 setup(
     name='serialized-redis',
-    version='0.1.5',
+    version='0.1.6',
     description='A solution to have lists and dictionaries serialized using redis-py.',
     author='EvandroLG',
     author_email='evandrolgoncalves@gmail.com',
