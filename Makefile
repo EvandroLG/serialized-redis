@@ -1,3 +1,5 @@
+.SILENT:
+
 test: pep8 test_server
 
 pep8:

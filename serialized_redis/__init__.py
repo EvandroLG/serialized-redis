@@ -75,4 +75,3 @@ class SerializedRedis(Redis):
             pass
 
         return value
-
