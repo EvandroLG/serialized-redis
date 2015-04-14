@@ -36,6 +36,16 @@ class TestSerializedRedis(TestCase):
         self.redis.get('mimi')
         self.assertTrue(pickle.loads.call_count == 1)
 
+    @mock.patch('pickle.dumps')
+    def test_hset_method_should_call_method_loads_From_pickle(self, *args):
+        self.redis.hset('mimi', 'meme', [1, 2, 3])
+        self.assertTrue(pickle.dumps.call_count == 1)
+
+    def test_hget_method_should_return_a_list_when_hget_is_walled(self):
+        self.redis.hset('mimi', 'meme', [1, 2, 3])
+        result = self.redis.hget('mimi', 'meme')
+        self.assertEqual(result, [1, 2, 3])
+
     def test_get_method_should_return_a_list_serialized(self):
         self.verify_result([1, 2, 3], [1, 2, 3])
 
@@ -66,3 +76,4 @@ class TestSerializedRedis(TestCase):
 
     def test_lrange_method_should_return_two_serialized_dict(self):
         self.verify_lrange_method('people', { 'name': 'Evandro' }, { 'name': 'Carmen' }, dict)
+
