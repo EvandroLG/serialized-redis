@@ -16,6 +16,8 @@ To install serialized_redis, simply:
 * rpush
 * rpushx
 * lrange
+* hset
+* hget
 
 ## Example
 ```python
