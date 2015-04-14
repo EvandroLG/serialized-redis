@@ -1,6 +1,6 @@
 # SerializedRedis
 ![Build
-Status](https://travis-ci.org/EvandroLG/serialized-redis.svg?branch=master)
+Status](https://travis-ci.org/EvandroLG/serialized-redis.svg?branch=master)(https://travis-ci.org/EvandroLG/serialized-redis)
 
 A solution to have lists and dictionaries serialized using redis-py.
 
